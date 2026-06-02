@@ -29,8 +29,13 @@ class AdminController extends Controller {
     }
 
     public function index()
-    {
+{
+    $activities = [
+        'total_users' => \App\Models\User::count(),
+        'total_cars' => \App\Models\Car::count(),
+        'total_tours' => \App\Models\TourPackage::count(),
+    ];
 
-        return view('admin.dashboard', compact('activities'));
-    }
+    return view('admin.dashboard', compact('activities'));
+}
 }
