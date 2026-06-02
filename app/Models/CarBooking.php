@@ -6,5 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class CarBooking extends Model
 {
-    //
+    protected $guarded = ['id'];
+    protected $casts = [
+        'pickup_date' => 'datetime',
+        'return_date' => 'datetime',
+    ];
+
+    public function user() { return $this->belongsTo(User::class); }
+    public function car() { return $this->belongsTo(Car::class); }
+    public function driver() { return $this->belongsTo(Driver::class); }
+
+    // Relasi Polymorphic ke Payment
+    public function payment() {
+        return $this->morphOne(Payment::class, 'booking');
+    }
 }
