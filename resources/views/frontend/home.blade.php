@@ -31,7 +31,7 @@
                     </div>
                     <h5 class="fw-bold">Carter Mobil</h5>
                     <p class="text-muted small">Sewa mobil lepas kunci atau dengan driver profesional.</p>
-                    <a href="{{ route('rental.index') }}" class="btn btn-sm btn-outline-primary mt-2">Pilih Mobil</a>
+                    <a href="{{ route('carter.index') }}" class="btn btn-sm btn-outline-primary mt-2">Pilih Mobil</a>
                 </div>
             </div>
         </div>

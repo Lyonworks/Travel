@@ -13,8 +13,9 @@ use App\Http\Controllers\UserController;
 // IMPORTS - FRONTEND CONTROLLERS
 // ==========================================
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\ProfileController;
 use App\Http\Controllers\Frontend\TravelController as FrontTravelController;
-use App\Http\Controllers\Frontend\RentalController;
+use App\Http\Controllers\Frontend\CarterController;
 use App\Http\Controllers\Frontend\TourController as FrontTourController;
 
 // ==========================================
@@ -47,6 +48,9 @@ Route::middleware('guest')->group(function () {
     // Auth Khusus Admin
     Route::get('/admin/login', [AdminController::class, 'loginForm'])->name('admin.login');
     Route::post('/admin/login', [AdminController::class, 'login']);
+
+    Route::get('/auth/google', [AuthController::class, 'redirectToGoogle'])->name('google.login');
+    Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback']);
 });
 
 // Logout (Hanya untuk user yang sudah login)
@@ -67,9 +71,9 @@ Route::prefix('travel')->name('travel.')->group(function () {
 });
 
 // Carter Mobil
-Route::prefix('rental')->name('rental.')->group(function () {
-    Route::get('/', [RentalController::class, 'index'])->name('index');
-    Route::get('/{car}', [RentalController::class, 'show'])->name('show');
+Route::prefix('carter')->name('carter.')->group(function () {
+    Route::get('/', [CarterController::class, 'index'])->name('index');
+    Route::get('/{car}', [CarterController::class, 'show'])->name('show');
 });
 
 // Paket Wisata
@@ -90,9 +94,12 @@ Route::middleware(['auth'])->group(function () {
     // Dashboard User
     Route::view('/dashboard', 'frontend.user.dashboard')->name('user.dashboard');
 
+    // Edit Profil
+    Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+
     // Proses Booking
     Route::post('/travel/{schedule}/book', [FrontTravelController::class, 'storeBooking'])->name('travel.book');
-    Route::post('/rental/{car}/book', [RentalController::class, 'storeBooking'])->name('rental.book');
+    Route::post('/carter/{car}/book', [CarterController::class, 'storeBooking'])->name('carter.book');
     Route::post('/tour/{package}/book', [FrontTourController::class, 'storeBooking'])->name('tour.book');
 
     // Checkout & Pembayaran

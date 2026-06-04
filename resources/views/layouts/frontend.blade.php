@@ -74,7 +74,7 @@
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Beranda</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('travel.index') }}">Travel Antar Kota</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('rental.index') }}">Carter Mobil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('carter.index') }}">Carter Mobil</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('tour.index') }}">Paket Wisata</a></li>
                 </ul>
                 <div class="d-flex">

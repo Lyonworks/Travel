@@ -9,12 +9,27 @@ class User extends Authenticatable
 {
     use HasApiTokens, Notifiable;
 
-    protected $fillable = ['name','email','password','role_id'];
+    protected $fillable = ['google_id','name','email','avatar','password','role_id'];
 
     protected $hidden = ['password','remember_token'];
 
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function travelBookings()
+    {
+        return $this->hasMany(TravelBooking::class);
+    }
+
+    public function carBookings()
+    {
+        return $this->hasMany(CarBooking::class);
+    }
+
+    public function tourBookings()
+    {
+        return $this->hasMany(TourBooking::class);
     }
 }

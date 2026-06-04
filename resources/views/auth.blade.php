@@ -259,6 +259,13 @@
                     <i class='bx bxs-lock-alt'></i>
                 </div>
                 <button type="submit" class="btn">Login</button>
+                <div class="text-center mt-3 mb-3">
+                    <span class="text-muted small">Atau masuk menggunakan</span>
+                </div>
+                <a href="{{ route('google.login') }}" class="btn btn-outline-dark w-100 py-2 d-flex align-items-center justify-content-center">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png" width="20" class="me-2" alt="Google">
+                    Login dengan Google
+                </a>
 
                 {{-- Error login --}}
                 @error('email')
@@ -285,6 +292,13 @@
                     <i class='bx bxs-lock-alt'></i>
                 </div>
                 <button type="submit" class="btn">Register</button>
+                <div class="text-center mt-3 mb-3">
+                    <span class="text-muted small">Atau masuk menggunakan</span>
+                </div>
+                <a href="{{ route('google.login') }}" class="btn btn-outline-dark w-100 py-2 d-flex align-items-center justify-content-center">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png" width="20" class="me-2" alt="Google">
+                    Login dengan Google
+                </a>
 
                 {{-- Error register --}}
                 @error('name') <p style="color:red;font-size:14px">{{ $message }}</p> @enderror

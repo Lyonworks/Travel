@@ -10,18 +10,18 @@ use App\Models\Driver;
 use App\Models\CarBooking;
 use Carbon\Carbon;
 
-class RentalController extends Controller
+class CarterController extends Controller
 {
     public function index()
     {
         $cars = Car::where('status', 'Tersedia')->get();
-        return view('frontend.rental.index', compact('cars'));
+        return view('frontend.carter.index', compact('cars'));
     }
 
     public function show(Car $car)
     {
         $drivers = Driver::where('status', 'Tersedia')->get();
-        return view('frontend.rental.show', compact('car', 'drivers'));
+        return view('frontend.carter.show', compact('car', 'drivers'));
     }
 
     public function storeBooking(Request $request, Car $car)
