@@ -61,6 +61,21 @@
                         </a>
                     </li>
 
+                    <li class="nav-header">MASTER DATA</li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('admin.cities.index') }}" class="nav-link {{ request()->routeIs('admin.cities.*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-city"></i>
+                            <p>Data Kota</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('admin.routes.index') }}" class="nav-link {{ request()->routeIs('admin.routes.*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-route"></i>
+                            <p>Rute Perjalanan</p>
+                        </a>
+                    </li>
                     <li class="nav-header">MANAJEMEN LAYANAN</li>
 
                     <li class="nav-item">

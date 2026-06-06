@@ -13,16 +13,13 @@
                         @if(auth()->user()->avatar)
                             <img src="{{ filter_var(auth()->user()->avatar, FILTER_VALIDATE_URL) ? auth()->user()->avatar : asset('storage/' . auth()->user()->avatar) }}" class="rounded-circle border border-primary p-1" style="width: 80px; height: 80px; object-fit: cover;">
                         @else
-                            <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-inline-flex align-items-center justify-content-center mx-auto" style="width: 80px; height: 80px;">
-                                <i class="fas fa-user fa-2x"></i>
-                            </div>
+                            <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name) }}&background=5050F4&color=ffffff&size=120" class="rounded-circle border border-primary p-1" style="width: 80px; height: 80px; object-fit: cover;">
                         @endif
                     </div>
                     <h6 class="fw-bold text-dark mb-0">{{ auth()->user()->name }}</h6>
                     <small class="text-muted">{{ auth()->user()->email }}</small>
                 </div>
 
-                <!-- Nav Pills Links -->
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                     <button class="nav-link active text-start mb-2 py-2.5" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab">
                         <i class="fas fa-th-large me-2"></i> Ringkasan
@@ -40,6 +37,16 @@
                         <i class="fas fa-user-cog me-2"></i> Profil Saya
                     </button>
                 </div>
+
+                <div class="mt-4 pt-3 border-top">
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-light text-danger w-100 text-start fw-bold py-2.5" style="border-radius: 8px;">
+                            <i class="fas fa-sign-out-alt me-2"></i> Keluar Akun
+                        </button>
+                    </form>
+                </div>
+
             </div>
         </div>
 
@@ -204,7 +211,7 @@
                             </div>
                         @endif
 
-                        <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data" id="profileForm">
                             @csrf
                             @method('PUT')
 
@@ -213,9 +220,7 @@
                                     @if(auth()->user()->avatar)
                                         <img src="{{ filter_var(auth()->user()->avatar, FILTER_VALIDATE_URL) ? auth()->user()->avatar : asset('storage/' . auth()->user()->avatar) }}" class="rounded-circle img-thumbnail mb-2" style="width: 100px; height: 100px; object-fit: cover;">
                                     @else
-                                        <div class="bg-light text-secondary rounded-circle d-inline-flex align-items-center justify-content-center mb-2" style="width: 100px; height: 100px;">
-                                            <i class="fas fa-camera fa-2x"></i>
-                                        </div>
+                                        <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name) }}&background=5050F4&color=ffffff&size=150" class="rounded-circle img-thumbnail mb-2" style="width: 100px; height: 100px; object-fit: cover;">
                                     @endif
                                 </div>
                                 <div class="col-md-9">
@@ -237,12 +242,9 @@
                                 @error('email') <small class="text-danger">{{ $message }}</small> @enderror
                             </div>
 
-                            <div class="mb-4">
-                                <label class="form-label text-muted small fw-bold">Status Akun</label>
-                                <input type="text" class="form-control text-primary fw-bold bg-light" value="{{ auth()->user()->google_id ? 'Terkoneksi dengan Google' : 'Akun Regular' }}" readonly>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary px-4"><i class="fas fa-save me-2"></i> Simpan Perubahan</button>
+                            <button type="submit" class="btn btn-primary px-4" id="btnSubmitProfile" disabled>
+                                <i class="fas fa-save me-2"></i> Simpan Perubahan
+                            </button>
                         </form>
                     </div>
                 </div>
@@ -252,4 +254,43 @@
 
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 1. Ambil elemen yang dibutuhkan
+        const form = document.getElementById('profileForm');
+        const submitBtn = document.getElementById('btnSubmitProfile');
+
+        const nameInput = form.querySelector('input[name="name"]');
+        const emailInput = form.querySelector('input[name="email"]');
+        const avatarInput = form.querySelector('input[name="avatar"]');
+
+        // 2. Simpan value awal saat halaman pertama kali diload
+        const initialName = nameInput.value;
+        const initialEmail = emailInput.value;
+
+        // 3. Fungsi untuk mengecek perubahan
+        function validateChanges() {
+            // Cek apakah ada teks yang berubah
+            const isNameChanged = nameInput.value !== initialName;
+            const isEmailChanged = emailInput.value !== initialEmail;
+
+            // Cek apakah ada file foto baru yang dipilih
+            const isAvatarChanged = avatarInput.files.length > 0;
+
+            // Jika ada HINGGA SATU saja yang berubah, hapus atribut disabled
+            if (isNameChanged || isEmailChanged || isAvatarChanged) {
+                submitBtn.removeAttribute('disabled');
+            } else {
+                // Jika kembali seperti semula, tambahkan lagi disabled
+                submitBtn.setAttribute('disabled', 'true');
+            }
+        }
+
+        // 4. Pasang Event Listener ke inputan (Real-time checking)
+        nameInput.addEventListener('input', validateChanges);
+        emailInput.addEventListener('input', validateChanges);
+        avatarInput.addEventListener('change', validateChanges);
+    });
+</script>
 @endsection

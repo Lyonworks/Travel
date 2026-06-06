@@ -19,7 +19,6 @@
                 <tr>
                     <th>Gambar</th>
                     <th>Nama / Brand</th>
-                    <th>No. Plat</th>
                     <th>Harga / Hari</th>
                     <th>Status</th>
                     <th>Aksi</th>
@@ -36,7 +35,6 @@
                         @endif
                     </td>
                     <td><strong>{{ $car->name }}</strong> <br><small class="text-muted">{{ $car->brand }} ({{ $car->year }})</small></td>
-                    <td>{{ $car->plate_number }}</td>
                     <td>Rp {{ number_format($car->price_per_day, 0, ',', '.') }}</td>
                     <td>
                         <span class="badge badge-{{ $car->status == 'Tersedia' ? 'success' : ($car->status == 'Dipakai' ? 'warning' : 'danger') }}">

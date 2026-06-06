@@ -21,6 +21,8 @@ use App\Http\Controllers\Frontend\TourController as FrontTourController;
 // ==========================================
 // IMPORTS - ADMIN CONTROLLERS
 // ==========================================
+use App\Http\Controllers\Admin\CityController;
+use App\Http\Controllers\Admin\RouteController;
 use App\Http\Controllers\Admin\TravelController as AdminTravelController;
 use App\Http\Controllers\Admin\CarController;
 use App\Http\Controllers\Admin\DriverController;
@@ -124,6 +126,12 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', EnsureRole::class.':
     // Manajemen Hak Akses / User (Diambil dari UserController bawaanmu)
     Route::resource('users', UserController::class)->except(['create', 'store', 'show']);
 
+    // Manajemen Kota
+    Route::resource('cities', CityController::class);
+
+    // Manajemen Rute Perjalanan
+    Route::resource('routes', RouteController::class);
+
     // Manajemen Travel Antar Kota (Jadwal)
     Route::resource('travel', AdminTravelController::class);
 
@@ -133,6 +141,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', EnsureRole::class.':
 
     // Manajemen Paket Wisata
     Route::resource('tours', AdminTourController::class);
+
 
     // Manajemen Pembayaran
     Route::get('/payments', [PaymentController::class, 'index'])->name('payments.index');

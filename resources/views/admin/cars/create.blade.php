@@ -25,10 +25,6 @@
                     <input type="number" name="year" class="form-control" value="{{ $car->year ?? old('year') }}" required>
                 </div>
                 <div class="form-group col-md-4">
-                    <label>Nomor Plat Kendaraan</label>
-                    <input type="text" name="plate_number" class="form-control" value="{{ $car->plate_number ?? old('plate_number') }}" required>
-                </div>
-                <div class="form-group col-md-4">
                     <label>Harga Sewa Per Hari (Rp)</label>
                     <input type="number" name="price_per_day" class="form-control" value="{{ $car->price_per_day ?? old('price_per_day') }}" required>
                 </div>

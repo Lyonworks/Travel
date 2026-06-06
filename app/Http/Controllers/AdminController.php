@@ -34,6 +34,8 @@ class AdminController extends Controller {
         'total_users' => \App\Models\User::count(),
         'total_cars' => \App\Models\Car::count(),
         'total_tours' => \App\Models\TourPackage::count(),
+        'total_cities' => \App\Models\City::count(),
+        'total_routes' => \App\Models\Route::count(),
     ];
 
     return view('admin.dashboard', compact('activities'));
